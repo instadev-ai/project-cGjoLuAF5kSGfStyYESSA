@@ -1,6 +1,7 @@
 import { useCallback } from "react";
+import Particles from "react-tsparticles";
 import type { Container, Engine } from "tsparticles-engine";
-import { loadSlim } from "tsparticles-slim";
+import { loadFull } from "tsparticles";
 import { useEffect, useState } from "react";
 
 interface ConfettiProps {
@@ -11,7 +12,7 @@ const Confetti = ({ isActive = false }: ConfettiProps) => {
   const [initialized, setInitialized] = useState(false);
 
   const particlesInit = useCallback(async (engine: Engine) => {
-    await loadSlim(engine);
+    await loadFull(engine);
   }, []);
 
   const particlesLoaded = useCallback(async (container: Container | undefined) => {
@@ -28,8 +29,7 @@ const Confetti = ({ isActive = false }: ConfettiProps) => {
 
   return (
     <div className="fixed inset-0 z-50 pointer-events-none">
-      {/* @ts-ignore */}
-      <tsparticles
+      <Particles
         id="confetti"
         init={particlesInit}
         loaded={particlesLoaded}
